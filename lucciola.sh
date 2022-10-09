@@ -15,7 +15,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-BACKUP_PATH="/media/usb0"
+BACKUP_PATH="$HOME/BACKUP"
 
 # Check for Raspberry Pi OS
 os_check=$(cat /etc/os-release | grep Raspbian)
@@ -33,7 +33,11 @@ if [ ! -z "$os_check" ]; then
 fi
 
 # Transfer new files
+if [ -d "/media/usb0" ]; then
+gphoto2 --filename "/media/usb0/%d%m%Y-%H%M%S-%n.%C" --get-all-files --skip-existing >>"/tmp/lucciola.log" 2>&1
+else
 gphoto2 --filename "$BACKUP_PATH/%d%m%Y-%H%M%S-%n.%C" --get-all-files --skip-existing >>"/tmp/lucciola.log" 2>&1
+fi
 # Shutdown
 if [ ! -z "$os_check" ]; then
 	sudo poweroff
