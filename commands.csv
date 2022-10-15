@@ -1,0 +1,5 @@
+Get all files; --get-all-files --skip-existing --filename photos/%Y%m%d-%H%M%S-%03n.%C >>"/tmp/lucciola.log" 2>&1
+List configurable parameters; --list-config
+Show camera's abilities; --abilities
+gPhoto2 help; --help
+gPhoto2 version; --version

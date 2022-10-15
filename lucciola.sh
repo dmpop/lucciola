@@ -29,6 +29,3 @@ sudo sh -c "echo heartbeat > /sys/class/leds/led0/trigger"
 
 # Transfer files
 gphoto2 --filename "/media/usb0/%d%m%Y-%H%M%S-%n.%C" --get-all-files --skip-existing >>"/tmp/lucciola.log" 2>&1
-
-# Shutdown
-sudo poweroff
