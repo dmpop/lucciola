@@ -85,9 +85,10 @@
 		?>
 
 		<form style="margin-top: 1.5em; display: inline;" action='index.php' method='POST'>
-			<select style="width: 25em;" name="parameter">
-				<option value=''>Select command</option>
-				<?php
+			<?php
+			if (!empty($camera)) {
+				echo '<select style="width: 20em;" name="parameter">
+				<option value="">Select command</option>';
 				if (file_exists("commands.csv")) {
 					$handle = fopen("commands.csv", "r");
 					fgetcsv($handle);
@@ -97,36 +98,38 @@
 				} else {
 					echo '<option disabled>commands.csv not found</option>';
 				}
-				?>
-			</select>
+				echo '</select>
+			<input style="width: 15em;" type="text" name="cmd">
 			<button style="vertical-align: top;" type="submit">OK</button>
-		</form>
-		<button class="button button-outline" type="button" onclick="location.href='edit.php';">Edit commands</button>
+		</form>';
+			}
+			?>
+			<button class="button button-outline" type="button" onclick="location.href='edit.php';">Edit commands</button>
 
-		<?php
+			<?php
 
-		if (!file_exists("photos")) {
-			mkdir("photos", 0777, true);
-		}
+			if (!file_exists("photos")) {
+				mkdir("photos", 0777, true);
+			}
 
-		if (isset($_POST["cmd"])) {
-			echo '<pre>';
-			passthru('gphoto2 ' . $_POST["cmd"]);
-			echo '</pre>';
-		}
+			if (isset($_POST["cmd"])) {
+				echo '<pre>';
+				passthru('gphoto2 ' . $_POST["cmd"]);
+				echo '</pre>';
+			}
 
-		if (isset($_POST["parameter"])) {
-			echo '<hr style="margin-top: 2em;"><pre>';
-			$command = 'gphoto2 ' . $_POST['parameter'];
-			passthru("$command");
-			echo '</pre>';
-		}
-		if (isset($_POST["poweroff"])) {
-			shell_exec('sudo poweroff > /dev/null 2>&1 & echo $!');
-		}
-		?>
-		<hr>
-		<p>This is <a href="https://github.com/dmpop/lucciola">Lucciola</a></p>
+			if (isset($_POST["parameter"])) {
+				echo '<hr style="margin-top: 2em;"><pre>';
+				$command = 'gphoto2 ' . $_POST['parameter'];
+				passthru("$command");
+				echo '</pre>';
+			}
+			if (isset($_POST["poweroff"])) {
+				shell_exec('sudo poweroff > /dev/null 2>&1 & echo $!');
+			}
+			?>
+			<hr>
+			<p>This is <a href="https://github.com/dmpop/lucciola">Lucciola</a></p>
 	</div>
 </body>
 
