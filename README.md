@@ -1,6 +1,6 @@
 # Lucciola
 
-Lucciola transforms any Linux machine into a automatic camera backup device. It works with any camera supported by [gPhoto2](http://gphoto.org/proj/libgphoto2/support.php). The key goals of Lucciola design: simplicity, reliability, zero-effort operation.
+Lucciola transforms a Raspberry Pi into a automatic camera backup device. It works with any camera supported by [gPhoto2](http://gphoto.org/proj/libgphoto2/support.php). The key goals of Lucciola design: simplicity, reliability, zero-effort operation.
 
 # Dependencies
 

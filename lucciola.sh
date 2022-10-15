@@ -15,10 +15,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-BACKUP_PATH="$HOME/BACKUP"
-
-# Check for Raspberry Pi OS
-os_check=$(cat /etc/os-release | grep Raspbian)
+BACKUP_PATH="/media/usb0/"
 
 # Wait for camera
 camera=$(gphoto2 --auto-detect | grep usb)
@@ -28,17 +25,10 @@ while [ -z "$camera" ]; do
 done
 
 # Set the ACT LED to heartbeat to indicate that the camera has been detected
-if [ ! -z "$os_check" ]; then
-	sudo sh -c "echo heartbeat > /sys/class/leds/led0/trigger"
-fi
+sudo sh -c "echo heartbeat > /sys/class/leds/led0/trigger"
 
-# Transfer new files
-if [ -d "/media/usb0" ]; then
+# Transfer files
 gphoto2 --filename "/media/usb0/%d%m%Y-%H%M%S-%n.%C" --get-all-files --skip-existing >>"/tmp/lucciola.log" 2>&1
-else
-gphoto2 --filename "$BACKUP_PATH/%d%m%Y-%H%M%S-%n.%C" --get-all-files --skip-existing >>"/tmp/lucciola.log" 2>&1
-fi
+
 # Shutdown
-if [ ! -z "$os_check" ]; then
-	sudo poweroff
-fi
+sudo poweroff
